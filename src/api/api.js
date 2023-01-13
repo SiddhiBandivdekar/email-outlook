@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://flipkart-email-mock.now.sh";
+export const baseURL = "https://flipkart-email-mock.now.sh";
 
 const fetchEmails = async (page) => {
   try {
@@ -12,7 +12,7 @@ const fetchEmails = async (page) => {
   }
 };
 
-const fetchEmailBody = async (emailId) => {
+export const fetchEmailBody = async (emailId) => {
   try {
     const response = await axios.get(`${baseURL}?id=${emailId}`);
     return response.data;
@@ -22,7 +22,7 @@ const fetchEmailBody = async (emailId) => {
   }
 };
 
-const markEmailRead = async (emailId) => {
+export const markEmailRead = async (emailId) => {
   try {
     await axios.patch(`${baseURl}?id=${emailId}`, {
       read: true,
@@ -33,10 +33,32 @@ const markEmailRead = async (emailId) => {
   }
 };
 
-const markEmailUnRead = async (emailId) => {
+export const markEmailUnRead = async (emailId) => {
   try {
     await axios.patch(`${baseURL}?id=${emailId}`, {
       read: false,
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const markEmailFavourite = async (emailId) => {
+  try {
+    await axios.patch(`${baseURL}?id=${emailId}`, {
+      favorite: true,
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const markEmailUnFavorite = async (emailId) => {
+  try {
+    await axios.patch(`${baseURL}?id=${emailId}`, {
+      favorite: false,
     });
   } catch (error) {
     console.error(error);
