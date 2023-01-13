@@ -21,3 +21,25 @@ const fetchEmailBody = async (emailId) => {
     throw error;
   }
 };
+
+const markEmailRead = async (emailId) => {
+  try {
+    await axios.patch(`${baseURl}?id=${emailId}`, {
+      read: true,
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const markEmailUnRead = async (emailId) => {
+  try {
+    await axios.patch(`${baseURL}?id=${emailId}`, {
+      read: false,
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
