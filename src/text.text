@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.left {
+  font-size: 20px;
+}
+
+button {
+  border: none;
+  font-family: "Signika Negative", sans-serif;
+  font-size: 18px;
+  margin-left: 5px;
+  /* background-color: #e1e4ea; */
+  /* border-radius: 25px; */
+  padding: 10px;
+  background-color: #f4f5f9;
+  cursor: pointer;
+}
