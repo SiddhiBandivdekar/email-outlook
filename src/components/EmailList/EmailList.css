@@ -1,0 +1,22 @@
+.email-list {
+  padding: 18px;
+}
+
+.filter-buttons {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  font-family: "Signika Negative", sans-serif;
+  font-size: 16px;
+  margin-right: -15px;
+  /* background-color: #e1e4ea; */
+  /* border-radius: 25px; */
+  padding: 10px;
+  background-color: #f4f5f9;
+  cursor: pointer;
+}

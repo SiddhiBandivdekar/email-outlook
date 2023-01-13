@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const baseURL = "https://flipkart-email-mock.now.sh";
 
-const fetchEmails = async (page) => {
+export const fetchEmails = async (page) => {
   try {
     const response = await axios.get(`${baseURL}?page=${page}`);
     return response.data;
@@ -24,7 +24,7 @@ export const fetchEmailBody = async (emailId) => {
 
 export const markEmailRead = async (emailId) => {
   try {
-    await axios.patch(`${baseURl}?id=${emailId}`, {
+    await axios.patch(`${baseURL}?id=${emailId}`, {
       read: true,
     });
   } catch (error) {
