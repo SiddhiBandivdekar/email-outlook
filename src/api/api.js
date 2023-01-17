@@ -4,8 +4,9 @@ export const baseURL = "https://flipkart-email-mock.now.sh";
 
 export const fetchEmails = async (page) => {
   try {
-    const response = await axios.get(`${baseURL}?page=${page}`);
-    return response.data;
+    const response = await axios.get(`${baseURL}/?page=${page}`);
+    // console.log(response.data.list);
+    return response.data.list;
   } catch (error) {
     console.error(error);
     throw error;
@@ -14,7 +15,8 @@ export const fetchEmails = async (page) => {
 
 export const fetchEmailBody = async (emailId) => {
   try {
-    const response = await axios.get(`${baseURL}?id=${emailId}`);
+    const response = await axios.get(`${baseURL}/?id=${emailId}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
