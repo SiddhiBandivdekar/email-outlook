@@ -1,8 +1,7 @@
-.email-list {
-  padding: 10px;
+.emailList_container {
   position: relative;
+  width: 100%;
 }
-
 .filter-buttons {
   display: flex;
   align-items: center;
@@ -14,6 +13,9 @@
   background-color: #f4f5f9;
   cursor: pointer;
 }
+.current-page {
+  background-color: #c2c4c2;
+}
 
 .selected {
   background-color: #e1e4ea;
@@ -21,8 +23,14 @@
 }
 
 .pagination-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
   position: absolute;
-  top: calc(100vh - 60px);
+  bottom: 0;
+  top: calc(100% - 10px);
+  right: calc(100% - 50%);
 }
 
 .page-buttons {
@@ -30,6 +38,22 @@
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   padding: 5px;
-  background-color: #f4f5f9;
+  /* background-color: #f4f5f9; */
   cursor: pointer;
+}
+
+.body-list {
+  display: flex;
+}
+
+.emailList-items {
+  width: 100%;
+}
+
+.emailList-items.split {
+  width: 33.33%;
+}
+
+.emailList-body.split {
+  width: 66.66%;
 }
