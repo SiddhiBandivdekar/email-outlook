@@ -13,6 +13,8 @@ const EmailList = () => {
   const [filter, setFilter] = useState("unread");
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [selectedEmailList, setSelectedEmailList] = useState();
+  const [emailBody, setEmailBody] = useState(null);
+  const [isEmailBodyOpen, setIsEmailBodyOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [splitView, setSplitView] = useState(false);
 
@@ -20,10 +22,10 @@ const EmailList = () => {
   const markUnfavorite = (id) => dispatch(markEmailUnfavorite(id));
 
   const dispatch = useDispatch();
-  const emailsList = useSelector(selectEmailsList);
+  const emailsListData = useSelector(selectEmailsList);
   const emailsData = useSelector(selectEmailsData);
 
-  console.log(emailsList);
+  // console.log(emailsList);
 
   useEffect(() => {
     const fetch = async () => {
@@ -33,7 +35,7 @@ const EmailList = () => {
     fetch();
   }, [currentPage, dispatch]);
 
-  const filteredEmails = emailsList?.filter((email) => {
+  const filteredEmails = emailsListData?.filter((email) => {
     if (filter === "read") {
       return email.isRead;
     } else if (filter === "unread") {
@@ -51,13 +53,10 @@ const EmailList = () => {
 
   let emailList;
   if (filter === "unread") {
-    emailList = emailsList;
+    emailList = emailsListData;
   } else {
     emailList = filteredEmails;
   }
-
-  const [emailBody, setEmailBody] = useState(null);
-  const [isEmailBodyOpen, setIsEmailBodyOpen] = useState(false);
 
   const handleBodyOpen = (email) => {
     setSplitView(true);
@@ -81,12 +80,12 @@ const EmailList = () => {
     setIsFavorite(isFav);
   };
 
-  // const emailsLength = emailsData.total;
   const filterValues = [
     { label: "Unread", value: "unread" },
     { label: "Read", value: "read" },
     { label: "Favorites", value: "isFavorite" },
   ];
+
   useEffect(() => {
     if (selectedEmail) {
       setIsFavorite(selectedEmail.isFavorite);
