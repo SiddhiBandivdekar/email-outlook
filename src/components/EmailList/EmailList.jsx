@@ -46,7 +46,7 @@ const EmailList = () => {
 
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
-    setSelectedEmail(null);
+    setSelectedEmail(selectedEmailList);
   };
 
   let emailList;
@@ -56,13 +56,15 @@ const EmailList = () => {
     emailList = filteredEmails;
   }
 
+  const [emailBody, setEmailBody] = useState(null);
+  const [isEmailBodyOpen, setIsEmailBodyOpen] = useState(false);
+
   const handleBodyOpen = (email) => {
     setSplitView(true);
-    setSelectedEmail(email);
-    setSelectedEmailList(email);
+    setIsEmailBodyOpen(!isEmailBodyOpen);
+    setSelectedEmail(isEmailBodyOpen ? null : email);
+    setSelectedEmailList(isEmailBodyOpen ? null : email);
   };
-
-  const [emailBody, setEmailBody] = useState(null);
 
   useEffect(() => {
     if (!selectedEmail) return;
@@ -71,7 +73,7 @@ const EmailList = () => {
       setEmailBody(body);
     };
     fetch();
-  }, [selectedEmail]);
+  }, [selectedEmail, filter]);
 
   // console.log(emailBody?.body);
 
@@ -127,7 +129,7 @@ const EmailList = () => {
                 )
             )}
 
-        {emailList && emailList.length !== 0 && emailsList.length > 9 && (
+        {emailList && emailList.length !== 0 && emailList.length > 9 && (
           <div className="pagination-buttons">
             {buttons.map((button) => (
               <button
@@ -143,13 +145,21 @@ const EmailList = () => {
           </div>
         )}
         <div className="body-list">
-          <div className={`emailList-items ${splitView ? "split" : ""} `}>
+          <div
+            className={`emailList-items ${
+              splitView && isEmailBodyOpen ? "split" : ""
+            } `}
+          >
             {emailList?.map((email) => (
               <EmailListItem
                 key={email.id}
                 email={email}
                 splitView={splitView}
                 handleBodyOpen={handleBodyOpen}
+                isFullWidth={
+                  (filter === "favorites" || filter === "read") &&
+                  !selectedEmail
+                }
                 isSelected={
                   selectedEmailList ? email.id === selectedEmailList.id : false
                 }
@@ -158,18 +168,23 @@ const EmailList = () => {
             ))}
           </div>
 
-          {splitView && selectedEmail && (
-            <div className="emailList-body split">
-              <EmailBody
-                emailBody={emailBody}
-                email={selectedEmail}
-                markAsFavorite={markFavorite}
-                markAsUnfavorite={markUnfavorite}
-                onFavoriteChange={handleFavoriteChange}
-                isFavorite={isFavorite}
-              />
-            </div>
-          )}
+          {splitView &&
+            selectedEmail &&
+            (filter === "unread" ||
+              filteredEmails?.find(
+                (email) => email.id === selectedEmail.id
+              )) && (
+              <div className="emailList-body split">
+                <EmailBody
+                  emailBody={emailBody}
+                  email={selectedEmail}
+                  markAsFavorite={markFavorite}
+                  markAsUnfavorite={markUnfavorite}
+                  onFavoriteChange={handleFavoriteChange}
+                  isFavorite={isFavorite}
+                />
+              </div>
+            )}
         </div>
       </div>
     </>
