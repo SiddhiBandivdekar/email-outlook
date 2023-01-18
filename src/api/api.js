@@ -5,8 +5,8 @@ export const baseURL = "https://flipkart-email-mock.now.sh";
 export const fetchEmails = async (page) => {
   try {
     const response = await axios.get(`${baseURL}/?page=${page}`);
-    // console.log(response.data.list);
-    return response.data.list;
+    const responseData = { data: response.data, list: response.data.list };
+    return responseData;
   } catch (error) {
     console.error(error);
     throw error;
