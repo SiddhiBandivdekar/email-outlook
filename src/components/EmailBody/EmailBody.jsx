@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { fetchEmailBody } from "../../api/api";
 import "./EmailBody.css";
+
+const formatDate = (date) => {
+  const options = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+  return new Intl.DateTimeFormat("en-GB", options).format(new Date(date));
+};
 
 const EmailBody = ({
   email,
+  emailBody,
   markAsFavorite,
   markAsUnfavorite,
-  emailBody,
   onFavoriteChange,
   isFavorite,
-  avatar,
-  subject,
-  date,
 }) => {
-  const [selectedEmail, setselectedEmail] = useState(null);
-  useEffect(() => {
-    if (email.id) {
-      fetchEmailBody(email.id).then((email) => {
-        setselectedEmail(email);
-      });
-    }
-  }, [email.id, fetchEmailBody]);
+  const formattedDate = formatDate(email.date);
 
   const handleMarkAsFavorite = () => {
     isFavorite ? markAsUnfavorite(email.id) : markAsFavorite(email.id);
@@ -32,20 +32,22 @@ const EmailBody = ({
   }
 
   return (
-    <div className="email-body-list">
-      <div className="header">
-        <div className="avatar">{email.from.name[0].toUpperCase()}</div>
-        <h1>Lorem Ispum</h1>
-        <button className="body-btns" onClick={handleMarkAsFavorite}>
-          {isFavorite ? "Unmark as Favorite" : "Mark as Favorite"}
-        </button>
+    <>
+      <div className="email-body-list">
+        <div className="header">
+          <div className="avatar">{email.from.name[0].toUpperCase()}</div>
+          <h1>{email.subject}</h1>
+          <button className="body-btns" onClick={handleMarkAsFavorite}>
+            {isFavorite ? "Unmark as Favorite" : "Mark as Favorite"}
+          </button>
+        </div>
+        <div className="date">{formattedDate}</div>
+        <div
+          className="body"
+          dangerouslySetInnerHTML={{ __html: emailBody?.body }}
+        ></div>
       </div>
-      <div className="date">26/02/2020, 08:35 pm</div>
-      <div
-        className="body"
-        dangerouslySetInnerHTML={{ __html: selectedEmail?.body }}
-      ></div>
-    </div>
+    </>
   );
 };
 

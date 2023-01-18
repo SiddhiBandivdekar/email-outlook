@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./EmailListItem.css";
 import { useDispatch } from "react-redux";
-import { markEmailRead, setSelectedEmailId } from "../../store/emailSlice";
+import { markEmailRead } from "../../store/emailSlice";
 
 const formatDate = (date) => {
   const options = {
@@ -38,35 +38,35 @@ const EmailListItem = ({
 
   return (
     <>
-      <div className="page">
-        <div className="email-container">
-          <div
-            className={`email-list-page ${isSelected ? "selected" : ""}`}
-            onClick={handleClick}
-          >
-            <div className="email-item-avatar">
-              {email.from.name[0].toUpperCase()}
+      <div className="email-container">
+        <div
+          className={`email-list-page ${isSelected ? "selected" : ""} ${
+            isRead ? "read" : "unread"
+          }`}
+          onClick={handleClick}
+        >
+          <div className="email-item-avatar">
+            {email.from.name[0].toUpperCase()}
+          </div>
+          <div className="email-item-content">
+            <div className="email-item-from">
+              <span>From:</span>
+              <div className="from-name text">{email.from.name}</div>
+              <div className="from-email text">{`<${email.from.email}>`}</div>
             </div>
-            <div className="email-item-content">
-              <div className="email-item-from">
-                <span>From:</span>
-                <div className="from-name text">{email.from.name}</div>
-                <div className="from-email text">{`<${email.from.email}>`}</div>
-              </div>
-              <div className="email-item-subject">
-                <span>Subject:</span>
-                <span className="text"> {email.subject}</span>
-              </div>
-              <div className="email-item-desc">
-                {splitView
-                  ? email.short_description.substring(0, 40) + "..."
-                  : email.short_description}
-              </div>
-              <div className="email-item-information">
-                <div className="email-item-date">{formattedDate}</div>
+            <div className="email-item-subject">
+              <span>Subject:</span>
+              <span className="text"> {email.subject}</span>
+            </div>
+            <div className="email-item-desc">
+              {splitView
+                ? email.short_description.substring(0, 40) + "..."
+                : email.short_description}
+            </div>
+            <div className="email-item-information">
+              <div className="email-item-date">{formattedDate}</div>
 
-                {isFavorite && <div className="email-item-fav">Favorite</div>}
-              </div>
+              {isFavorite && <div className="email-item-fav">Favorite</div>}
             </div>
           </div>
         </div>
