@@ -7,7 +7,7 @@ div[dangerouslySetInnerHTML] p {
 }
 
 .email-body-list {
-  background-color: #f2f2f2;
+  background-color: white;
   border: 1px solid #cfd2dc;
   margin-left: 20px;
   border-radius: 6px;

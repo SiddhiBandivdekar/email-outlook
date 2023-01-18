@@ -134,7 +134,15 @@
 }
 
 .email-list-page.selected {
-  border: 1px solid #e54065;
+  border: 2px solid #e54065;
+}
+
+.email-list-page.read {
+  background-color: #f2f2f2;
+}
+
+.email-list-page.unread {
+  background-color: white;
 }
 
 .email-item-avatar {
@@ -201,7 +209,7 @@
 
 .email-item-fav {
   border: none;
-  background-color: #f4f5f9;
+  background-color: transparent;
   color: #e54065;
   font-weight: bolder;
   font-size: 15px;
