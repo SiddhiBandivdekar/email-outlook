@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./EmailList.css";
-import { selectEmails, setEmails } from "../../store/emailSlice";
+import { setEmails } from "../../store/emailSlice";
 import { selectEmailsList, selectEmailsData } from "../../store/emailSlice";
 import { fetchEmailBody, fetchEmails } from "../../api/api";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,7 +14,6 @@ const EmailList = () => {
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [selectedEmailList, setSelectedEmailList] = useState();
   const [emailBody, setEmailBody] = useState(null);
-  const [isEmailBodyOpen, setIsEmailBodyOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [splitView, setSplitView] = useState(false);
 
@@ -49,6 +48,8 @@ const EmailList = () => {
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
     setSelectedEmail(selectedEmailList);
+    setSplitView(false);
+    setSelectedEmailList(null);
   };
 
   let emailList;
@@ -60,9 +61,8 @@ const EmailList = () => {
 
   const handleBodyOpen = (email) => {
     setSplitView(true);
-    setIsEmailBodyOpen(!isEmailBodyOpen);
-    setSelectedEmail(isEmailBodyOpen ? null : email);
-    setSelectedEmailList(isEmailBodyOpen ? null : email);
+    setSelectedEmail(email);
+    setSelectedEmailList(email);
   };
 
   useEffect(() => {
@@ -124,7 +124,9 @@ const EmailList = () => {
               (fil) =>
                 filter === fil.value &&
                 !emailList.length > 0 && (
-                  <div key={fil.value}>No emails found!</div>
+                  <div key={fil.value} className="no-emailList">
+                    No emails found!
+                  </div>
                 )
             )}
 
@@ -144,11 +146,7 @@ const EmailList = () => {
           </div>
         )}
         <div className="body-list">
-          <div
-            className={`emailList-items ${
-              splitView && isEmailBodyOpen ? "split" : ""
-            } `}
-          >
+          <div className={`emailList-items ${splitView ? "split" : ""} `}>
             {emailList?.map((email) => (
               <EmailListItem
                 key={email.id}
