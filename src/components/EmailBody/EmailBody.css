@@ -20,6 +20,14 @@
   align-items: center;
 }
 
+.loading {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  color: #e54065;
+  font-weight: bold;
+}
+
 h1 {
   color: #636363;
 }

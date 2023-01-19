@@ -27,26 +27,30 @@ const EmailBody = ({
     onFavoriteChange(!isFavorite);
   };
 
-  if (!emailBody) {
-    return <div>Loading...</div>;
-  }
+  // if (!emailBody) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <>
-      <div className="email-body-list">
-        <div className="header">
-          <div className="avatar">{email.from.name[0].toUpperCase()}</div>
-          <h1>{email.subject}</h1>
-          <button className="body-btns" onClick={handleMarkAsFavorite}>
-            {isFavorite ? "Unmark as Favorite" : "Mark as Favorite"}
-          </button>
+      {!emailBody ? (
+        <div className="loading">Loading...</div>
+      ) : (
+        <div className="email-body-list">
+          <div className="header">
+            <div className="avatar">{email.from.name[0].toUpperCase()}</div>
+            <h1>{email.subject}</h1>
+            <button className="body-btns" onClick={handleMarkAsFavorite}>
+              {isFavorite ? "Unmark as Favorite" : "Mark as Favorite"}
+            </button>
+          </div>
+          <div className="date">{formattedDate}</div>
+          <div
+            className="body"
+            dangerouslySetInnerHTML={{ __html: emailBody?.body }}
+          ></div>
         </div>
-        <div className="date">{formattedDate}</div>
-        <div
-          className="body"
-          dangerouslySetInnerHTML={{ __html: emailBody?.body }}
-        ></div>
-      </div>
+      )}
     </>
   );
 };
