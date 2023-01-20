@@ -27,10 +27,6 @@ const EmailBody = ({
     onFavoriteChange(!isFavorite);
   };
 
-  // if (!emailBody) {
-  //   return <div>Loading...</div>;
-  // }
-
   return (
     <>
       {!emailBody || email.id !== emailBody.id ? (
