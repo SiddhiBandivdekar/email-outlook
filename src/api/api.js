@@ -16,7 +16,6 @@ export const fetchEmails = async (page) => {
 export const fetchEmailBody = async (emailId) => {
   try {
     const response = await axios.get(`${baseURL}/?id=${emailId}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
