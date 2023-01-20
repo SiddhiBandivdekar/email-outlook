@@ -33,7 +33,7 @@ const EmailBody = ({
 
   return (
     <>
-      {!emailBody ? (
+      {!emailBody || email.id !== emailBody.id ? (
         <div className="loading">Loading...</div>
       ) : (
         <div className="email-body-list">
