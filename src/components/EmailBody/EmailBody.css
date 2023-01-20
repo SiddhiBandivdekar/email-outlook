@@ -74,4 +74,6 @@ h1 {
   padding: 10px 80px;
   color: #636363;
   font-size: 14px;
+  overflow-y: scroll;
+  max-height: 400px;
 }
