@@ -5,13 +5,14 @@ const emailSlice = createSlice({
   initialState: { data: [], list: [] },
   reducers: {
     setEmails: (state, action) => {
-      const emailArray = action.payload.list.map((email) => ({
-        ...email,
-      }));
-      // state.list = action.payload.list.map((email) => ({
-      //   ...email,
-      // }));
-      state.list = [...state.list, ...emailArray];
+      const emailArray = [...state.list];
+      action.payload.list.forEach((email) => {
+        let item = emailArray.find((i) => i.id === email.id);
+        if (!item) {
+          emailArray.push(email);
+        }
+      });
+      state.list = [...emailArray];
       state.data = action.payload.data;
     },
 
