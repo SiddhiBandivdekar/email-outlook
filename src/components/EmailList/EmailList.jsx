@@ -53,13 +53,12 @@ const EmailList = () => {
 
   let emailList;
   if (filter === "unread") {
-    emailList = emailsListData;
+    emailList = emailsListData.filter((email, index) => {
+      return index / 10 < currentPage && index / 10 >= currentPage - 1;
+    });
   } else {
     emailList = filteredEmails;
   }
-  emailList = emailList.filter((email, index) => {
-    return index / 10 < currentPage && index / 10 >= currentPage - 1;
-  });
 
   const handleBodyOpen = (email) => {
     setSplitView(true);
