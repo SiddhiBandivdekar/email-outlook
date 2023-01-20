@@ -24,10 +24,6 @@ const EmailList = () => {
   const emailsListData = useSelector(selectEmailsList);
   const emailsData = useSelector(selectEmailsData);
 
-  // console.log(emailsListData);
-
-  // console.log(emailsList);
-
   useEffect(() => {
     const fetch = async () => {
       const responseData = await fetchEmails(currentPage);
@@ -61,12 +57,9 @@ const EmailList = () => {
   } else {
     emailList = filteredEmails;
   }
-  console.log(emailList);
   emailList = emailList.filter((email, index) => {
-    console.log(index, currentPage);
     return index / 10 < currentPage && index / 10 >= currentPage - 1;
   });
-  console.log(emailList);
 
   const handleBodyOpen = (email) => {
     setSplitView(true);
@@ -82,8 +75,6 @@ const EmailList = () => {
     };
     fetch();
   }, [selectedEmail, filter]);
-
-  // console.log(emailBody?.body);
 
   const handleFavoriteChange = (isFav) => {
     setIsFavorite(isFav);
