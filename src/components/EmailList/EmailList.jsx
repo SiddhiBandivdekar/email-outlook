@@ -99,13 +99,11 @@ const EmailList = () => {
     }
   }, [selectedEmail]);
 
-  const emailsLength = emailsData.total || 0;
+  const emailsLength =
+    filter === "unread" ? emailsData.total || 0 : emailList.length;
 
   const totalPages = Math.ceil(emailsLength / 10);
-  const buttons =
-    filter === "unread"
-      ? Array.from({ length: totalPages }, (_, i) => i + 1)
-      : Array.from({ length: emailList.length }, (_, i) => i + 1);
+  const buttons = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <>
