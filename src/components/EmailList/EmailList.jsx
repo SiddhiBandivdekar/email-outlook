@@ -80,6 +80,11 @@ const EmailList = () => {
     setIsFavorite(isFav);
   };
 
+  const handlePageClick = (button) => {
+    setCurrentPage(button);
+    setSplitView(false);
+  };
+
   const filterValues = [
     { label: "Unread", value: "unread" },
     { label: "Read", value: "read" },
@@ -97,7 +102,10 @@ const EmailList = () => {
   const emailsLength = emailsData.total || 0;
 
   const totalPages = Math.ceil(emailsLength / 10);
-  const buttons = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const buttons =
+    filter === "unread"
+      ? Array.from({ length: totalPages }, (_, i) => i + 1)
+      : Array.from({ length: emailList.length }, (_, i) => i + 1);
 
   return (
     <>
@@ -130,7 +138,7 @@ const EmailList = () => {
                 )
             )}
 
-        {emailList && emailList.length !== 0 && emailList.length > 9 && (
+        {emailList && buttons.length > 1 && (
           <div className="pagination-buttons">
             {buttons.map((button) => (
               <button
@@ -138,7 +146,7 @@ const EmailList = () => {
                 className={`page-buttons ${
                   currentPage === button ? "current-page" : ""
                 }`}
-                onClick={() => setCurrentPage(button)}
+                onClick={() => handlePageClick(button)}
               >
                 Page {button}
               </button>
